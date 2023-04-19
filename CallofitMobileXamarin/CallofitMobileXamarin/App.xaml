@@ -1,0 +1,42 @@
+﻿<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CallofitMobileXamarin.App">
+
+    <!--<Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BackgroundColorBlack">#1c1c1e</Color>
+            <Color x:Key="BackgroundColorWhite">white</Color>
+            <Color x:Key="ForegroundColor">#ffffff</Color>
+            <Color x:Key="PlaceholderColor">#8e8e93</Color>
+
+            --><!-- Light theme --><!--
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource BackgroundColorWhite}" />
+                <Setter Property="BarTextColor" Value="{StaticResource BackgroundColorBlack}" />
+            </Style>
+
+            --><!-- Dark theme --><!--
+            <Style x:Key="DarkTheme" TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource BackgroundColorBlack}" />
+                <Setter Property="BarTextColor" Value="{StaticResource BackgroundColorWhite}" />
+            </Style>
+
+            <Style x:Key="DarkThemeFrame" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColorBlack}" />
+            </Style>
+            <Style x:Key="DarkThemeGrid" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColorBlack}" />
+            </Style>
+
+            <Style x:Key="DarkThemeLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource ForegroundColor}" />
+            </Style>
+
+            <Style x:Key="DarkThemeEntry" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColorBlack}" />
+                <Setter Property="TextColor" Value="{StaticResource ForegroundColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource PlaceholderColor}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>-->
+</Application>

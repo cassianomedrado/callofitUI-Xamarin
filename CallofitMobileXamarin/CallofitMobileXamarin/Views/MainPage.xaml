@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CallofitMobileXamarin.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackLayout BackgroundColor="#212529" Orientation="Horizontal" Padding="10">
+            <Label Text="Olá, " TextColor="White" FontSize="Large" VerticalOptions="Center" />
+            <Image Source="doutilizador.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="30" HeightRequest="30" Margin="10">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="UserIcon_Tapped" />
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray">
+                <StackLayout VerticalOptions="Center">
+                    <Image Source="blueIconExclamacao.png" VerticalOptions="End" />
+                    <Label Text="Em Aberto (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray">
+                <StackLayout VerticalOptions="Center">
+                    <Image Source="exclamacao.png" VerticalOptions="Center" />
+                    <Label Text="Pendentes (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="1" Grid.Column="0" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True">
+                <StackLayout VerticalOptions="Center">
+                    <Image Source="check.png" VerticalOptions="Center" />
+                    <Label Text="Finalizados (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True">
+                <StackLayout VerticalOptions="Center">
+                    <Image Source="atrasado.png" VerticalOptions="Center" />
+                    <Label Text="Atrasados (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+
+        <Button Text="+"
+               BackgroundColor="#007bff"
+               TextColor="White"
+               WidthRequest="60"
+               HeightRequest="60"
+               CornerRadius="30"
+               TranslationY="-30"
+               Clicked="HandleAddClicked"
+               Grid.Row="2"
+               Margin="20"
+               FontSize="30"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>

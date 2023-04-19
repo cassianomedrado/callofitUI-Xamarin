@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CallofitMobileXamarin.Views.LoginPage" Title="Call of IT">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Image Source="background.jpg" Aspect="AspectFill" />
+
+        <StackLayout VerticalOptions="CenterAndExpand" Padding="20">
+
+            <Frame  Padding="10" HasShadow="True" CornerRadius="10">
+                <Label HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span 
+                                    Text="Call of IT"
+                                    FontAttributes="Bold" FontSize="36"
+                                    TextColor="Black"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <!--<Label FormattedText="" Text="Call of IT" HorizontalTextAlignment="Center" TextColor="Black" FontSize="36"/>-->
+            </Frame>
+
+            <Frame BackgroundColor="#fff" Padding="10" HasShadow="True" CornerRadius="10">
+                <StackLayout Orientation="Vertical">
+                    <Image Source="Resources/Imagens/CallOfITLogo.png" 
+                           WidthRequest="150" HeightRequest="150" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center"/>
+                    <StackLayout Orientation="Vertical">
+                        <Entry x:Name="usuarioinput"  Placeholder="Nome de usuário" />
+                        <Entry x:Name="senhainput" Placeholder="Senha" IsPassword="True" />
+                        <Button BackgroundColor="#0d6efd" Text="Entrar"  TextColor="White" FontAttributes="Bold" Clicked="LoginButton_Clicked"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

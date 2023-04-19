@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CallofitMobileXamarin.Views.UsuarioPage">
+    <StackLayout>
+        <StackLayout BackgroundColor="#2196F3" HeightRequest="150">
+            <Label Text="Seu app" TextColor="White" FontSize="Large" Margin="10,40,0,0"/>
+            <Image Source="user.png" WidthRequest="50" HeightRequest="50" VerticalOptions="End" Margin="10"/>
+        </StackLayout>
+
+        <StackLayout Margin="20">
+            <Button Text="Trocar Senha" BackgroundColor="#2196F3" TextColor="White" Margin="5" Clicked="ChangePasswordButton_Clicked" />
+            <Button Text="Sair" BackgroundColor="#2196F3" TextColor="White" Margin="5" Clicked="LogoutButton_Clicked" />
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
