@@ -17,7 +17,6 @@ namespace CallofitMobileXamarin.Views
 		{
 			InitializeComponent ();
             Initialize();
-
         }
         private async void Initialize()
         {

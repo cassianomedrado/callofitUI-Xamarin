@@ -24,8 +24,6 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-
-                <!--<Label FormattedText="" Text="Call of IT" HorizontalTextAlignment="Center" TextColor="Black" FontSize="36"/>-->
             </Frame>
 
             <Frame BackgroundColor="#fff" Padding="10" HasShadow="True" CornerRadius="10">
@@ -42,6 +40,28 @@
                 </StackLayout>
             </Frame>
 
+        </StackLayout>
+        
+        <StackLayout x:Name="loading" Grid.Row="0" IsVisible="false" 
+                     BackgroundColor="#C0808080" 
+                     VerticalOptions="FillAndExpand" 
+                     HorizontalOptions="FillAndExpand">
+            <Image Source="loading2.gif" IsAnimationPlaying="True"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand"
+                   Aspect="AspectFit"/>
+            <!--<ffimageloading:CachedImage Source="loading2.gif"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        Aspect="AspectFit"
+                                        FadeAnimationEnabled="true"
+                                        FadeAnimationForCachedImages="true"
+                                        RetryCount="0"
+                                        RetryDelay="500"
+                                        DownsampleToViewSize="true" />-->
+            <!--<ActivityIndicator IsRunning="true" 
+                               VerticalOptions="CenterAndExpand" 
+                               HorizontalOptions="CenterAndExpand" />-->
         </StackLayout>
     </Grid>
 
