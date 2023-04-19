@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CallofitMobileXamarin.Models.Requests
+namespace CallofitMobileXamarin.Models.RequestsErrors
 {
-    public class RequestErrorsModel
+    public class RequestErrorsdDTO
     {
         public int status { get; set; }
         public string errors { get; set; }

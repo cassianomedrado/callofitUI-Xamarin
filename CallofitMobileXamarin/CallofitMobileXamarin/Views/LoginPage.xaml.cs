@@ -10,7 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,10 +30,7 @@ namespace CallofitMobileXamarin.Views
         {
             if (await AuthToken.IsAuthenticatedAsync())
             {
-                await AuthToken.ClearTokenAsync();
-                Application.Current.MainPage = new NavigationPage(new MainPage());
                 await Navigation.PushAsync(new MainPage());
-                Navigation.RemovePage(this);
             }
         }
 
@@ -49,19 +46,55 @@ namespace CallofitMobileXamarin.Views
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    var token = JsonConvert.DeserializeObject<TokenModel>(responseContent);
+                    var token = JsonConvert.DeserializeObject<TokenDTO>(responseContent);
 
                     if (token != null)
                     {
-                        loginSuccessful = true;
-
                         await AuthToken.SetTokenAsync(token.Token);
                         await AuthToken.SetExpirationAsync(DateTime.Now.AddSeconds(token.expires_in));
+
+                        var responseRecuperaUsuario = await loginService.RecuperarDadosUsuarioAsync(usuarioinput.Text);
+                        if (responseRecuperaUsuario.IsSuccessStatusCode)
+                        {
+                            var responseRecuperaUsuarioContent = await responseRecuperaUsuario.Content.ReadAsStringAsync();
+                            var usuarioModel = JsonConvert.DeserializeObject<UsuarioDTO>(responseRecuperaUsuarioContent);
+                            if (usuarioModel != null)
+                            {
+                                loginSuccessful = true;
+                                await SecureStorage.SetAsync("id", usuarioModel.id.ToString());
+                                await SecureStorage.SetAsync("data_criacao", usuarioModel.data_criacao.ToString());
+                                await SecureStorage.SetAsync("nome", usuarioModel.nome);
+                                await SecureStorage.SetAsync("email", usuarioModel.email);
+                                await SecureStorage.SetAsync("tipo_usuario_id", usuarioModel.tipo_usuario_id.ToString());
+                                await SecureStorage.SetAsync("username", usuarioModel.username);
+                                await SecureStorage.SetAsync("status", usuarioModel.status.ToString());
+                            }
+                            else
+                            {
+                                loading.IsVisible = false;
+                                await AuthToken.ClearTokenAsync();
+                                await DisplayAlert("Error", "Não foi possível carregar dados do usuário.", "OK");
+                            }
+                        }
+                        else
+                        {
+                            loading.IsVisible = false;
+                            await AuthToken.ClearTokenAsync();
+                            var errorTratado = await ErrorsHandler.TratarMenssagemErro(responseRecuperaUsuario);
+                            await DisplayAlert(errorTratado.status.ToString(), errorTratado.errors, "OK");
+                        }
+                    }
+                    else
+                    {
+                        loading.IsVisible = false;
+                        await AuthToken.ClearTokenAsync();
+                        await DisplayAlert("Error", "Token de acesso não gerado.", "OK");
                     }
                 }
                 else
                 {
                     loading.IsVisible = false;
+                    await AuthToken.ClearTokenAsync();
                     var errorTratado =  await ErrorsHandler.TratarMenssagemErro(response);
                     await DisplayAlert(errorTratado.status.ToString(), errorTratado.errors, "OK");
                 }
@@ -69,15 +102,14 @@ namespace CallofitMobileXamarin.Views
             catch (Exception ex)
             {
                 loading.IsVisible = false;
+                await AuthToken.ClearTokenAsync();
                 await DisplayAlert("Erro 500", ex.Message, "OK");
             }
             
             if (loginSuccessful)
             {
                 loading.IsVisible = false;
-                Application.Current.MainPage = new NavigationPage(new MainPage());
                 await Navigation.PushAsync(new MainPage());
-                Navigation.RemovePage(this);
             }
         }
     }

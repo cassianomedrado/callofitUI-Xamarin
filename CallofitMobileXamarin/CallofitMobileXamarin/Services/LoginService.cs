@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
 using System;
+using CallofitMobileXamarin.Models.Requests;
+using System.Net.Http.Headers;
+using CallofitMobileXamarin.Utils;
+using CallofitMobileXamarin.Models.Usuario;
 
 namespace CallofitMobileXamarin.Services
 {
@@ -14,14 +18,13 @@ namespace CallofitMobileXamarin.Services
         {
             var response = new HttpResponseMessage();
 
-            var loginModel = new LoginModel
+            var loginModel = new LoginRequest
             {
                 username = username,
                 senha = senha
             };
             try
             {
-                var api = Configuration.ApiUrl;
                 var handler = new HttpClientHandler()
                 {
                     ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
@@ -32,11 +35,40 @@ namespace CallofitMobileXamarin.Services
             }
             catch (Exception e)
             {
-                throw new ArgumentException("teste");
+                throw new ArgumentException(e.Message);
             }
 
             return response;
         }
 
+        public async Task<HttpResponseMessage> RecuperarDadosUsuarioAsync(string username)
+        {
+            var response = new HttpResponseMessage();
+            var token = await AuthToken.GetTokenAsync();
+            var recuperarDadosRequest = new RecuperarDadosRequest()
+            {
+                username = username
+            };
+            try
+            {
+                var handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                };
+                var httpClient = new HttpClient(handler);
+                var content = new StringContent(JsonConvert.SerializeObject(recuperarDadosRequest), Encoding.UTF8, "application/json");
+                var request = new HttpRequestMessage(HttpMethod.Post, Configuration.ApiUrl + "/Usuario");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Content = content;
+                response = await httpClient.SendAsync(request);
+
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+
+            return response;
+        }
     }
 }

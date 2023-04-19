@@ -1,11 +1,10 @@
-﻿using CallofitMobileXamarin.Models.Login;
+﻿using CallofitMobileXamarin.Models.Chamados;
+using CallofitMobileXamarin.Services;
+using CallofitMobileXamarin.Utils;
 using CallofitMobileXamarin.Views;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CallofitMobileXamarin
@@ -21,11 +20,44 @@ namespace CallofitMobileXamarin
 
         private async void Initialize()
         {
-            if (await AuthToken.IsAuthenticatedAsync())
+            ChamadosService chamadosService = new ChamadosService();
+            if (!await AuthToken.IsAuthenticatedAsync())
             {
                 await AuthToken.ClearTokenAsync();
-                Application.Current.MainPage = new NavigationPage(new LoginPage());
                 await Navigation.PopToRootAsync();
+            }
+            else
+            {
+                NavigationPage.SetHasBackButton(this, false);
+                try
+                {
+                    //loading.IsVisible = true;
+                    var response = await chamadosService.RecuperarDadosUsuarioAsync(await SecureStorage.GetAsync("id"));
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        var totaisChamados = JsonConvert.DeserializeObject<BuscaTotaisChamadosDTO>(responseContent);
+                        if(totaisChamados != null)
+                        {
+                            labelEmAberto.Text = $"Em Aberto ({totaisChamados.chamadosEmAberto})";
+                            labelPendentes.Text = $"Pendentes ({totaisChamados.chamadosPendentes})";
+                            labelFinalizados.Text = $"Finalizados ({totaisChamados.chamadosFinalizados})";
+                            labelAtrasados.Text = $"Atrasados ({totaisChamados.chamadosAtrasados})";
+                        }
+                    }
+                    else
+                    {
+                        var errorTratado = await ErrorsHandler.TratarMenssagemErro(response);
+                        await DisplayAlert(errorTratado.status.ToString(), errorTratado.errors, "OK");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Erro 500", ex.Message, "OK");
+                }
+
+                var nomeUser = await SecureStorage.GetAsync("nome");
+                labelBemVindoUser.Text = $"Olá, {nomeUser}";
             }
         }
 
