@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CallofitMobileXamarin.Models.Login
+namespace CallofitMobileXamarin.Models.Usuario
 {
-    class LoginModel
+    public class RecuperarDadosRequest
     {
         public string username { get; set; }
-        public string senha { get; set; }
     }
 }

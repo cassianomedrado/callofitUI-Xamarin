@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace CallofitMobileXamarin.Models.Login
+namespace CallofitMobileXamarin.Utils
 {
     public static class AuthToken
     {

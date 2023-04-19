@@ -1,4 +1,4 @@
-﻿using CallofitMobileXamarin.Models.Login;
+﻿using CallofitMobileXamarin.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 
 namespace CallofitMobileXamarin.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class UsuarioPage : ContentPage
 	{
 		public UsuarioPage()
@@ -20,20 +20,19 @@ namespace CallofitMobileXamarin.Views
         }
         private async void Initialize()
         {
-            if (await AuthToken.IsAuthenticatedAsync())
+            if (!await AuthToken.IsAuthenticatedAsync())
             {
                 await AuthToken.ClearTokenAsync();
-                Application.Current.MainPage = new NavigationPage(new LoginPage());
-                await Navigation.PopToRootAsync();
+                await Navigation.PushAsync(new LoginPage());
             }
         }
 
         private async void LogoutButton_Clicked(object sender, EventArgs e)
         {
             await AuthToken.ClearTokenAsync();
-            Application.Current.MainPage = new NavigationPage(new LoginPage());
-            await Navigation.PopToRootAsync();
+            await Navigation.PushAsync(new LoginPage());
         }
+
         private async void ChangePasswordButton_Clicked(object sender, EventArgs e)
         {
             //await Navigation.PushAsync(new ChangePasswordPage());
