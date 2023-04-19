@@ -10,8 +10,10 @@ namespace CallofitMobileXamarin.Services
 {
     class LoginService
     {
-        public async Task<TokenModel> LoginAsync(string username, string senha)
+        public async Task<HttpResponseMessage> LoginAsync(string username, string senha)
         {
+            var response = new HttpResponseMessage();
+
             var loginModel = new LoginModel
             {
                 username = username,
@@ -26,22 +28,14 @@ namespace CallofitMobileXamarin.Services
                 };
                 var httpClient = new HttpClient(handler);
                 var content = new StringContent(JsonConvert.SerializeObject(loginModel), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync(Configuration.ApiUrl + "/Usuario/login", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var token = JsonConvert.DeserializeObject<TokenModel>(responseContent);
-                    return token;
-                }
+                response = await httpClient.PostAsync(Configuration.ApiUrl + "/Usuario/login", content);
             }
-            catch (WebException e)
+            catch (Exception e)
             {
-                var er = e;
+                throw new ArgumentException("teste");
             }
 
-
-            return null;
+            return response;
         }
 
     }
