@@ -1,6 +1,7 @@
 ﻿using CallofitMobileXamarin.Models.Chamados;
 using CallofitMobileXamarin.Services;
 using CallofitMobileXamarin.Utils;
+using CallofitMobileXamarin.ViewModels;
 using CallofitMobileXamarin.Views;
 using Newtonsoft.Json;
 using System;
@@ -14,6 +15,7 @@ namespace CallofitMobileXamarin
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new ViewModels.MainPageViewModel();
             NavigationPage.SetHasNavigationBar(this, false);
             Initialize();
         }
@@ -37,7 +39,7 @@ namespace CallofitMobileXamarin
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
                         var totaisChamados = JsonConvert.DeserializeObject<BuscaTotaisChamadosDTO>(responseContent);
-                        if(totaisChamados != null)
+                        if (totaisChamados != null)
                         {
                             labelEmAberto.Text = $"Em Aberto ({totaisChamados.chamadosEmAberto})";
                             labelPendentes.Text = $"Pendentes ({totaisChamados.chamadosPendentes})";
@@ -69,6 +71,26 @@ namespace CallofitMobileXamarin
         private async void HandleAddClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new UsuarioPage());
+        }
+
+        private void FrameChamadosEmAberto_Tapped(object sender, EventArgs e)
+        {
+            // Adicione aqui a ação desejada para quando o usuário tocar no Frame
+        }
+
+        private void FrameChamadosPendentes_Tapped(object sender, EventArgs e)
+        {
+            // Adicione aqui a ação desejada para quando o usuário tocar no Frame
+        }
+
+        private void FrameChamadosFinalizados_Tapped(object sender, EventArgs e)
+        {
+            // Adicione aqui a ação desejada para quando o usuário tocar no Frame
+        }
+
+        private void FrameChamadosAtrasados_Tapped(object sender, EventArgs e)
+        {
+            // Adicione aqui a ação desejada para quando o usuário tocar no Frame
         }
     }
 }

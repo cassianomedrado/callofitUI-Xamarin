@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:CallofitMobileXamarin.ViewModels"
              x:Class="CallofitMobileXamarin.MainPage">
+    
+    <ContentPage.BindingContext>
+        <viewModels:MainPageViewModel />
+    </ContentPage.BindingContext>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -9,6 +15,17 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <!--<VisualStateManager.VisualStateGroups>
+            <VisualStateGroup Name="Clicked">
+                <VisualState Name="Clicked">
+                    <VisualState.Setters>
+                        <Setter Property="BackgroundColor" Value="#8bc34a" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>-->
+
 
         <StackLayout BackgroundColor="#212529" Orientation="Horizontal" Padding="10">
             <Label x:Name="labelBemVindoUser" Text="Olá," TextColor="White" FontSize="Large" VerticalOptions="Center" />
@@ -29,32 +46,44 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray">
+            <Frame x:Name="frameEmAberto" Grid.Row="0" Grid.Column="0" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray">
                 <StackLayout VerticalOptions="Center">
                     <Image Source="blueIconExclamacao.png" VerticalOptions="End" />
                     <Label x:Name="labelEmAberto" Text="Em Aberto (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                 </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FrameChamadosEmAberto_Tapped" Command="{Binding FrameClickedCommand}" CommandParameter="{x:Reference frameEmAberto}"/>
+                </Frame.GestureRecognizers>
             </Frame>
 
-            <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray">
+            <Frame x:Name="framePendentes" Grid.Row="0" Grid.Column="1" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray">
                 <StackLayout VerticalOptions="Center">
                     <Image Source="exclamacao.png" VerticalOptions="Center" />
                     <Label x:Name="labelPendentes" Text="Pendentes (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                 </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FrameChamadosPendentes_Tapped" Command="{Binding FrameClickedCommand}" CommandParameter="{x:Reference framePendentes}"/>
+                </Frame.GestureRecognizers>
             </Frame>
 
-            <Frame Grid.Row="1" Grid.Column="0" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True">
+            <Frame x:Name="frameFinalizados" Grid.Row="1" Grid.Column="0" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray"> 
                 <StackLayout VerticalOptions="Center">
                     <Image Source="check.png" VerticalOptions="Center" />
                     <Label x:Name="labelFinalizados" Text="Finalizados (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                 </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FrameChamadosFinalizados_Tapped" Command="{Binding FrameClickedCommand}" CommandParameter="{x:Reference frameFinalizados}"/>
+                </Frame.GestureRecognizers>
             </Frame>
 
-            <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True">
+            <Frame x:Name="frameAtrasados" Grid.Row="1" Grid.Column="1" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray">
                 <StackLayout VerticalOptions="Center">
                     <Image Source="atrasado.png" VerticalOptions="Center" />
                     <Label x:Name="labelAtrasados" Text="Atrasados (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                 </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FrameChamadosAtrasados_Tapped" Command="{Binding FrameClickedCommand}" CommandParameter="{x:Reference frameAtrasados}"/>
+                </Frame.GestureRecognizers>
             </Frame>
         </Grid>
 
