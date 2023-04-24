@@ -11,7 +11,7 @@ namespace CallofitMobileXamarin.Services
 {
     public class ChamadosService
     {
-        public async Task<HttpResponseMessage> RecuperarDadosUsuarioAsync(string id)
+        public async Task<HttpResponseMessage> RecuperarTotaisChamadosAsync(string id)
         {
             var response = new HttpResponseMessage();
             var token = await AuthToken.GetTokenAsync();
@@ -29,6 +29,56 @@ namespace CallofitMobileXamarin.Services
                 var httpClient = new HttpClient(handler);
                 var content = new StringContent(JsonConvert.SerializeObject(requestTotaisChamados), Encoding.UTF8, "application/json");
                 var request = new HttpRequestMessage(HttpMethod.Post, Configuration.ApiUrl + "/Chamado/totais");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Content = content;
+                response = await httpClient.SendAsync(request);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> RecuperarStatusChamadosAsync()
+        {
+            var response = new HttpResponseMessage();
+            var token = await AuthToken.GetTokenAsync();
+
+            try
+            {
+                var handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                };
+                var httpClient = new HttpClient(handler);
+                var request = new HttpRequestMessage(HttpMethod.Get, Configuration.ApiUrl + "/StatusChamado");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                response = await httpClient.SendAsync(request);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> AbrirChamadoAsync(ChamadoPostDTO chamado)
+        {
+            var response = new HttpResponseMessage();
+            var token = await AuthToken.GetTokenAsync();
+
+            try
+            {
+                var handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                };
+                var httpClient = new HttpClient(handler);
+                var content = new StringContent(JsonConvert.SerializeObject(chamado), Encoding.UTF8, "application/json");
+                var request = new HttpRequestMessage(HttpMethod.Post, Configuration.ApiUrl + "/Chamado");
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 request.Content = content;
                 response = await httpClient.SendAsync(request);

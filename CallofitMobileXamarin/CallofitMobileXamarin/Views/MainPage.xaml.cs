@@ -15,6 +15,13 @@ namespace CallofitMobileXamarin
         public MainPage()
         {
             InitializeComponent();
+
+            // Ação que será executada quando uma página que sair da pilha direcionar ação para está página
+            MessagingCenter.Subscribe<object>(this, "PáginaRemovida", (sender) =>
+            {
+                AtualizarTotais();
+            });
+
             BindingContext = new ViewModels.MainPageViewModel();
             NavigationPage.SetHasNavigationBar(this, false);
             Initialize();
@@ -22,7 +29,6 @@ namespace CallofitMobileXamarin
 
         private async void Initialize()
         {
-            ChamadosService chamadosService = new ChamadosService();
             if (!await AuthToken.IsAuthenticatedAsync())
             {
                 await AuthToken.ClearTokenAsync();
@@ -31,32 +37,8 @@ namespace CallofitMobileXamarin
             else
             {
                 NavigationPage.SetHasBackButton(this, false);
-                try
-                {
-                    //loading.IsVisible = true;
-                    var response = await chamadosService.RecuperarDadosUsuarioAsync(await SecureStorage.GetAsync("id"));
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var responseContent = await response.Content.ReadAsStringAsync();
-                        var totaisChamados = JsonConvert.DeserializeObject<BuscaTotaisChamadosDTO>(responseContent);
-                        if (totaisChamados != null)
-                        {
-                            labelEmAberto.Text = $"Em Aberto ({totaisChamados.chamadosEmAberto})";
-                            labelPendentes.Text = $"Pendentes ({totaisChamados.chamadosPendentes})";
-                            labelFinalizados.Text = $"Finalizados ({totaisChamados.chamadosFinalizados})";
-                            labelAtrasados.Text = $"Atrasados ({totaisChamados.chamadosAtrasados})";
-                        }
-                    }
-                    else
-                    {
-                        var errorTratado = await ErrorsHandler.TratarMenssagemErro(response);
-                        await DisplayAlert(errorTratado.status.ToString(), errorTratado.errors, "OK");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Erro 500", ex.Message, "OK");
-                }
+
+                AtualizarTotais();
 
                 var nomeUser = await SecureStorage.GetAsync("nome");
                 labelBemVindoUser.Text = $"Olá, {nomeUser}";
@@ -68,9 +50,10 @@ namespace CallofitMobileXamarin
             await Navigation.PushAsync(new UsuarioPage());
         }
 
-        private async void HandleAddClicked(object sender, EventArgs e)
+        private async void AddChamado(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new UsuarioPage());
+            AdicionarChamado modalPage = new AdicionarChamado();
+            await Navigation.PushModalAsync(modalPage);
         }
 
         private void FrameChamadosEmAberto_Tapped(object sender, EventArgs e)
@@ -91,6 +74,37 @@ namespace CallofitMobileXamarin
         private void FrameChamadosAtrasados_Tapped(object sender, EventArgs e)
         {
             // Adicione aqui a ação desejada para quando o usuário tocar no Frame
+        }
+
+        private async void AtualizarTotais()
+        {
+            ChamadosService chamadosService = new ChamadosService();
+            try
+            {
+                //loading.IsVisible = true;
+                var response = await chamadosService.RecuperarTotaisChamadosAsync(await SecureStorage.GetAsync("id"));
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var totaisChamados = JsonConvert.DeserializeObject<BuscaTotaisChamadosDTO>(responseContent);
+                    if (totaisChamados != null)
+                    {
+                        labelEmAberto.Text = $"Em Aberto ({totaisChamados.chamadosEmAberto})";
+                        labelPendentes.Text = $"Pendentes ({totaisChamados.chamadosPendentes})";
+                        labelFinalizados.Text = $"Finalizados ({totaisChamados.chamadosFinalizados})";
+                        labelAtrasados.Text = $"Atrasados ({totaisChamados.chamadosAtrasados})";
+                    }
+                }
+                else
+                {
+                    var errorTratado = await ErrorsHandler.TratarMenssagemErro(response);
+                    await DisplayAlert(errorTratado.status.ToString(), errorTratado.errors, "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Erro 500", ex.Message, "OK");
+            }
         }
     }
 }
