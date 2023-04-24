@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CallofitMobileXamarin.Views.AdicionarChamado">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout Margin="10">
+
+            <Label Text="Solicitante*" FontSize="Medium" />
+            <Entry x:Name="solicitanteInput" Placeholder="Digite o nome do solicitante" Keyboard="Text" />
+
+            <Label Text="Data Limite" FontSize="Medium" />
+            <DatePicker x:Name="dataLimiteInput" Date="{Binding DataAtual}" IsEnabled="False" />
+
+            <Label Text="Status do chamado" FontSize="Medium" />
+            <Picker x:Name="StatusChamadoInput" Title="Selecione uma opção"/>
+
+            <Label Text="Sistema Suportado" FontSize="Medium" />
+            <Picker x:Name="OpcoesSistemaSuportadoInput" Title="Selecione uma opção" />
+
+            <Label Text="Descrição do Problema" FontSize="Medium" />
+            <Editor x:Name="descricaoProblemaInput"
+                    Placeholder="Descreva o problema aqui" 
+                    HeightRequest="80"/>
+
+            <Button Text="Adicionar"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    BackgroundColor="#007bff"
+                    Clicked="SalvarChamado"/>
+
+            <Button Text="Cancelar"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    BackgroundColor="red"
+                    Clicked="FecharAddChamado" />
+        </StackLayout>
+        <StackLayout x:Name="loading" Grid.Row="0" IsVisible="false" 
+                     BackgroundColor="#C0808080" 
+                     VerticalOptions="FillAndExpand" 
+                     HorizontalOptions="FillAndExpand">
+            <Image Source="loading2.gif" IsAnimationPlaying="True"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand"
+                   Aspect="AspectFit"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

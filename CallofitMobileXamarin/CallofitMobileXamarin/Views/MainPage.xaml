@@ -16,17 +16,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--<VisualStateManager.VisualStateGroups>
-            <VisualStateGroup Name="Clicked">
-                <VisualState Name="Clicked">
-                    <VisualState.Setters>
-                        <Setter Property="BackgroundColor" Value="#8bc34a" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>-->
-
-
         <StackLayout BackgroundColor="#212529" Orientation="Horizontal" Padding="10">
             <Label x:Name="labelBemVindoUser" Text="Olá," TextColor="White" FontSize="Large" VerticalOptions="Center" />
             <Image Source="doutilizador.png" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="30" HeightRequest="30" Margin="10">
@@ -94,7 +83,7 @@
                HeightRequest="60"
                CornerRadius="30"
                TranslationY="-30"
-               Clicked="HandleAddClicked"
+               Clicked="AddChamado"
                Grid.Row="2"
                Margin="20"
                FontSize="30"
