@@ -57,7 +57,7 @@
                                 <Label Text="Descrição do Problema" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
                                 <Editor x:Name="descricaoProblemaInput"
                                         Placeholder="Descreva o problema aqui" 
-                                        HeightRequest="80"/>
+                                        HeightRequest="100"/>
                             </StackLayout>
                         </ScrollView>
                     </Grid>

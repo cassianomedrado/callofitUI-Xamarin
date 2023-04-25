@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CallofitMobileXamarin.Views.ChamadosEmAberto"
-             BackgroundColor="#F8F8FF">
+             x:Class="CallofitMobileXamarin.Views.ChamadosFinalizados">
 
     <Grid>
-        <ListView x:Name="lstChamadosEmAberto" HasUnevenRows="True" ItemTapped="OnItemTapped">
+        <ListView x:Name="lstChamadosFinalizados" HasUnevenRows="True" ItemTapped="OnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -17,7 +16,7 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <Label Text="Em Aberto" Padding="2" FontSize="16" FontAttributes="Bold" BackgroundColor="Blue" VerticalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" />
+                            <Label Text="Finalizado" Padding="2" FontSize="16" FontAttributes="Bold" BackgroundColor="LightGreen" VerticalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" />
 
                             <Label Text="ID" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" />
                             <Label Text="{Binding id}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Row="2" Grid.Column="1" />

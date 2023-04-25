@@ -63,13 +63,12 @@
                                 <Label Text="Descrição do Problema" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
                                 <Editor x:Name="descricaoProblemaInput"
                                             Placeholder="Descreva o problema aqui" 
-                                            HeightRequest="80"
+                                            HeightRequest="100"
                                             IsReadOnly="True"/>
 
                                 <Label x:Name="labelDescricaoSolucaoInput" Text="Descrição da Solução" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
                                 <Editor x:Name="descricaoSolucaoInput"
-                                            Placeholder="Descreva a solução aqui" 
-                                            HeightRequest="80"
+                                            HeightRequest="100"
                                             IsReadOnly="True"/>
                             </StackLayout>
                         </ScrollView>
@@ -77,7 +76,7 @@
                 </Frame>
             </Grid>
             
-            <Grid Grid.Row="2" Margin="10">
+            <Grid x:Name="gridButtonsEmAberto" Grid.Row="2" Margin="10" IsVisible="False">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -87,13 +86,24 @@
                         TextColor="White"
                         FontAttributes="Bold"
                         BackgroundColor="red"
-                        Clicked="DeletarClick" />
+                        Clicked="DeletarClick" 
+                        x:Name="DeleteButton" Opacity="1"/>
 
                 <Button Grid.Column="1" Text="Voltar"
                         TextColor="White"
                         FontAttributes="Bold"
                         BackgroundColor="#007bff"
-                        Clicked="VoltarClick"/>
+                        Clicked="VoltarClick"
+                        x:Name="voltarButtonEmAberto"/>
+            </Grid>
+
+            <Grid x:Name="gridButtons" Grid.Row="2" Margin="10" IsVisible="True" HorizontalOptions="Center" VerticalOptions="Center">
+                <Button Text="Voltar"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        BackgroundColor="#007bff"
+                        Clicked="VoltarClick"
+                        x:Name="voltarButton"/>
             </Grid>
         </Grid>
         
