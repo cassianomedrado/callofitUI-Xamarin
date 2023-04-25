@@ -16,8 +16,19 @@ namespace CallofitMobileXamarin.Views
 		public UsuarioPage()
 		{
 			InitializeComponent ();
+
+
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetBackButtonTitle(this, ""); // Remove o texto "Voltar" do botão de navegação
+
+            NavigationPage.SetTitleView(this, new Label { Text = "Usuário", TextColor = Color.White, FontAttributes = FontAttributes.Bold }); // Define o título da página
+
+            NavigationPage navPage = (NavigationPage)Application.Current.MainPage;
+            navPage.BarBackgroundColor = Color.FromHex("#212529");
+
             Initialize();
         }
+
         private async void Initialize()
         {
             if (!await AuthToken.IsAuthenticatedAsync())

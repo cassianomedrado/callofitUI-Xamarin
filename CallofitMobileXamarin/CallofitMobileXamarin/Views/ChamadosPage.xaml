@@ -1,12 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CallofitMobileXamarin.Views.AdicionarChamado"
+             x:Class="CallofitMobileXamarin.Views.ChamadosPage"
              BackgroundColor="#F8F8FF">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -21,9 +22,9 @@
                             <FormattedString>
                                 <FormattedString.Spans>
                                     <Span 
-                                Text="Abrir Chamado"
-                                FontAttributes="Bold" FontSize="26"
-                                TextColor="Black"/>
+                                        Text="Chamado"
+                                        FontAttributes="Bold" FontSize="26"
+                                        TextColor="Black"/>
                                 </FormattedString.Spans>
                             </FormattedString>
                         </Label.FormattedText>
@@ -35,54 +36,67 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                
                 <Frame BackgroundColor="#B0C4DE" Padding="2" Margin="10,5" CornerRadius="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        
                         <ScrollView>
                             <StackLayout Margin="10">
                                 <Label Text="Solicitante*" FontSize="Medium"  FontAttributes="Bold" TextColor="Black"/>
-                                <Entry x:Name="solicitanteInput" Placeholder="Digite o nome do solicitante" Keyboard="Text"/>
+                                <Entry x:Name="solicitanteInput" Placeholder="Digite o nome do solicitante" Keyboard="Text" IsReadOnly="True"/>
 
                                 <Label Text="Data Limite" FontSize="Medium" FontAttributes="Bold" TextColor="Black" />
                                 <DatePicker x:Name="dataLimiteInput" Date="{Binding DataAtual}" IsEnabled="False"/>
 
                                 <Label Text="Status do chamado" FontSize="Medium" FontAttributes="Bold" TextColor="Black" />
-                                <Picker x:Name="StatusChamadoInput" TitleColor="White"  Title="Selecione uma opção" IsEnabled="False"/>
+                                <Picker x:Name="StatusChamadoInput" TextColor="White" Title="Selecione uma opção"  IsEnabled="False" IsTabStop="False" Visual="Default"/>
 
                                 <Label Text="Sistema Suportado" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
-                                <Picker x:Name="OpcoesSistemaSuportadoInput" Title="Selecione uma opção"/>
+                                <Picker x:Name="OpcoesSistemaSuportadoInput" Title="Selecione uma opção" IsEnabled="False" IsTabStop="False"/>
+
+                                <Label Text="Técnico Responsável" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
+                                <Entry x:Name="tecnicoResponsavelInput" Placeholder="Não Definido" Keyboard="Text" IsReadOnly="True"/>
 
                                 <Label Text="Descrição do Problema" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
                                 <Editor x:Name="descricaoProblemaInput"
-                                        Placeholder="Descreva o problema aqui" 
-                                        HeightRequest="80"/>
+                                            Placeholder="Descreva o problema aqui" 
+                                            HeightRequest="80"
+                                            IsReadOnly="True"/>
+
+                                <Label x:Name="labelDescricaoSolucaoInput" Text="Descrição da Solução" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
+                                <Editor x:Name="descricaoSolucaoInput"
+                                            Placeholder="Descreva a solução aqui" 
+                                            HeightRequest="80"
+                                            IsReadOnly="True"/>
                             </StackLayout>
                         </ScrollView>
                     </Grid>
                 </Frame>
             </Grid>
-
+            
             <Grid Grid.Row="2" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Text="Adicionar"
-                    TextColor="White"
-                    FontAttributes="Bold"
-                    BackgroundColor="#007bff"
-                    Clicked="SalvarChamado"/>
+                <Button Grid.Column="0" Text="Deletar"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        BackgroundColor="red"
+                        Clicked="DeletarClick" />
 
-                <Button Grid.Column="1" Text="Cancelar"
-                    TextColor="White"
-                    FontAttributes="Bold"
-                    BackgroundColor="red"
-                    Clicked="FecharAddChamado" />
+                <Button Grid.Column="1" Text="Voltar"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        BackgroundColor="#007bff"
+                        Clicked="VoltarClick"/>
             </Grid>
         </Grid>
+        
         <StackLayout x:Name="loading" IsVisible="false" 
                          BackgroundColor="#C0808080" 
                          VerticalOptions="FillAndExpand" 

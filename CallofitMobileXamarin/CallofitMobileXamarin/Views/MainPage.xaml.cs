@@ -5,6 +5,7 @@ using CallofitMobileXamarin.ViewModels;
 using CallofitMobileXamarin.Views;
 using Newtonsoft.Json;
 using System;
+using System.Runtime.CompilerServices;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -56,22 +57,22 @@ namespace CallofitMobileXamarin
             await Navigation.PushModalAsync(modalPage);
         }
 
-        private void FrameChamadosEmAberto_Tapped(object sender, EventArgs e)
+        private async void FrameChamadosEmAberto_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ChamadosEmAberto());
+        }
+
+        private async void FrameChamadosPendentes_Tapped(object sender, EventArgs e)
         {
             // Adicione aqui a ação desejada para quando o usuário tocar no Frame
         }
 
-        private void FrameChamadosPendentes_Tapped(object sender, EventArgs e)
+        private async void FrameChamadosFinalizados_Tapped(object sender, EventArgs e)
         {
             // Adicione aqui a ação desejada para quando o usuário tocar no Frame
         }
 
-        private void FrameChamadosFinalizados_Tapped(object sender, EventArgs e)
-        {
-            // Adicione aqui a ação desejada para quando o usuário tocar no Frame
-        }
-
-        private void FrameChamadosAtrasados_Tapped(object sender, EventArgs e)
+        private async void FrameChamadosAtrasados_Tapped(object sender, EventArgs e)
         {
             // Adicione aqui a ação desejada para quando o usuário tocar no Frame
         }
@@ -81,7 +82,7 @@ namespace CallofitMobileXamarin
             ChamadosService chamadosService = new ChamadosService();
             try
             {
-                //loading.IsVisible = true;
+                loading.IsVisible = true;
                 var response = await chamadosService.RecuperarTotaisChamadosAsync(await SecureStorage.GetAsync("id"));
                 if (response.IsSuccessStatusCode)
                 {
@@ -93,16 +94,19 @@ namespace CallofitMobileXamarin
                         labelPendentes.Text = $"Pendentes ({totaisChamados.chamadosPendentes})";
                         labelFinalizados.Text = $"Finalizados ({totaisChamados.chamadosFinalizados})";
                         labelAtrasados.Text = $"Atrasados ({totaisChamados.chamadosAtrasados})";
+                        loading.IsVisible = false;
                     }
                 }
                 else
                 {
+                    loading.IsVisible = false;
                     var errorTratado = await ErrorsHandler.TratarMenssagemErro(response);
                     await DisplayAlert(errorTratado.status.ToString(), errorTratado.errors, "OK");
                 }
             }
             catch (Exception ex)
             {
+                loading.IsVisible = false;
                 await DisplayAlert("Erro 500", ex.Message, "OK");
             }
         }
