@@ -57,6 +57,8 @@ namespace CallofitMobileXamarin.Views
                             titleChamado.FontSize = 26;
                             titleChamado.TextColor = Color.Black;
                             StatusChamadoInput.Background = Color.Blue;
+                            gridButtonsEmAberto.IsVisible = true;
+                            gridButtons.IsVisible = false;
                         }
                         if (chamado.status_chamado_id == 2)
                         {
@@ -67,6 +69,8 @@ namespace CallofitMobileXamarin.Views
                             titleChamado.FontSize = 26;
                             titleChamado.TextColor = Color.Black;
                             StatusChamadoInput.Background = Color.Yellow;
+                            gridButtonsEmAberto.IsVisible = false;
+                            gridButtons.IsVisible = true;
                         }
                         if (chamado.status_chamado_id == 3)
                         {
@@ -77,16 +81,20 @@ namespace CallofitMobileXamarin.Views
                             titleChamado.FontSize = 26;
                             titleChamado.TextColor = Color.Black;
                             StatusChamadoInput.Background = Color.LightGreen;
+                            gridButtonsEmAberto.IsVisible = false;
+                            gridButtons.IsVisible = true;
                         }
                         if (chamado.status_chamado_id == 4)
                         {
                             labelDescricaoSolucaoInput.IsVisible = true;
                             descricaoSolucaoInput.IsVisible = true;
                             titleChamado.Text = $"Chamado Atrasado: #{chamado.id}";
-                                           titleChamado.FontAttributes = FontAttributes.Bold;
+                            titleChamado.FontAttributes = FontAttributes.Bold;
                             titleChamado.FontSize = 26;
                             titleChamado.TextColor = Color.Black;
                             StatusChamadoInput.Background = Color.Red;
+                            gridButtonsEmAberto.IsVisible = false;
+                            gridButtons.IsVisible = true;
                         }
                     }
                 }
@@ -135,6 +143,7 @@ namespace CallofitMobileXamarin.Views
 
                 dataLimiteInput.Date = chamado.data_limite;
                 descricaoProblemaInput.Text = !String.IsNullOrEmpty(chamado.descricao_problema) ? chamado.descricao_problema : "";
+                descricaoSolucaoInput.Text = !String.IsNullOrEmpty(chamado.descricao_solucao) ? chamado.descricao_solucao : "";
                 loading.IsVisible = false;
             }
             catch (Exception ex)

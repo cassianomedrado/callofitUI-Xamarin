@@ -72,7 +72,7 @@
 
                 <Frame x:Name="frameAtrasados" Grid.Row="1" Grid.Column="1" BackgroundColor="White" Margin="20" Padding="20" CornerRadius="10" HasShadow="True" BorderColor="Gray">
                     <StackLayout VerticalOptions="Center">
-                        <Image Source="atrasado.png" VerticalOptions="Center" />
+                        <Image Source="atrasadoIcon.png" VerticalOptions="Center" />
                         <Label x:Name="labelAtrasados" Text="Atrasados (0)" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                     </StackLayout>
                     <Frame.GestureRecognizers>

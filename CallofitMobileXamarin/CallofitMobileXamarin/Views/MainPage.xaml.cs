@@ -64,17 +64,17 @@ namespace CallofitMobileXamarin
 
         private async void FrameChamadosPendentes_Tapped(object sender, EventArgs e)
         {
-            // Adicione aqui a ação desejada para quando o usuário tocar no Frame
+             await Navigation.PushAsync(new ChamadosPendentes());          
         }
 
         private async void FrameChamadosFinalizados_Tapped(object sender, EventArgs e)
         {
-            // Adicione aqui a ação desejada para quando o usuário tocar no Frame
+            await Navigation.PushAsync(new ChamadosFinalizados());  
         }
 
         private async void FrameChamadosAtrasados_Tapped(object sender, EventArgs e)
         {
-            // Adicione aqui a ação desejada para quando o usuário tocar no Frame
+            await Navigation.PushAsync(new ChamadosAtrasados());
         }
 
         private async void AtualizarTotais()
