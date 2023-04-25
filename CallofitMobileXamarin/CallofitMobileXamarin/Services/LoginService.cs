@@ -70,5 +70,31 @@ namespace CallofitMobileXamarin.Services
 
             return response;
         }
+
+        public async Task<HttpResponseMessage> RecuperarDadosUsuarioPorIdAsync(RequestUsuarioPorId userID)
+        {
+            var response = new HttpResponseMessage();
+            var token = await AuthToken.GetTokenAsync();
+            try
+            {
+                var handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                };
+                var httpClient = new HttpClient(handler);
+                var content = new StringContent(JsonConvert.SerializeObject(userID), Encoding.UTF8, "application/json");
+                var request = new HttpRequestMessage(HttpMethod.Post, Configuration.ApiUrl + "/Usuario/Usuario-por-id");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Content = content;
+                response = await httpClient.SendAsync(request);
+
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+
+            return response;
+        }
     }
 }

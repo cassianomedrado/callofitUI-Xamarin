@@ -23,6 +23,12 @@ namespace CallofitMobileXamarin.Views
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetHasBackButton(this, false);
+
+            // Ação que será executada quando uma página que sair da pilha direcionar ação para está página
+            MessagingCenter.Subscribe<object>(this, "PáginaRemovida", (sender) =>
+            {
+            });
+
             Initialize();
         }
 

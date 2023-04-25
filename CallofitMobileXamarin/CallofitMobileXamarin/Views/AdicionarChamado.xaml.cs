@@ -55,7 +55,7 @@ namespace CallofitMobileXamarin.Views
 
                         // selecionar item com ID igual a 2
                         StatusChamadoInput.SelectedItem = listStatusChamados.FirstOrDefault(o => o.id == 1); //PADRÃO EM ABERTO
-                        StatusChamadoInput.Background = Color.LightGreen;
+                        StatusChamadoInput.Background = Color.Blue;
                         StatusChamadoInput.IsEnabled = false;   
                     }
                 }

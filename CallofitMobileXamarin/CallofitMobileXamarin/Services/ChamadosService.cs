@@ -90,5 +90,57 @@ namespace CallofitMobileXamarin.Services
 
             return response;
         }
+
+        public async Task<HttpResponseMessage> RecuperarChamadosAsync(BuscarChamadosRequest chamadosRequest)
+        {
+            var response = new HttpResponseMessage();
+            var token = await AuthToken.GetTokenAsync();
+
+            try
+            {
+                var handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                };
+                var httpClient = new HttpClient(handler);
+                var content = new StringContent(JsonConvert.SerializeObject(chamadosRequest), Encoding.UTF8, "application/json");
+                var request = new HttpRequestMessage(HttpMethod.Post, Configuration.ApiUrl + "/Chamado/chamados-consultar");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Content = content;
+                response = await httpClient.SendAsync(request);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> DeleteChamadosAsync(DeleteChamadoRequest deleteRequest)
+        {
+            var response = new HttpResponseMessage();
+            var token = await AuthToken.GetTokenAsync();
+
+            try
+            {
+                var handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                };
+                var httpClient = new HttpClient(handler);
+                var content = new StringContent(JsonConvert.SerializeObject(deleteRequest), Encoding.UTF8, "application/json");
+                var request = new HttpRequestMessage(HttpMethod.Post, Configuration.ApiUrl + "/Chamado/delete");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Content = content;
+                response = await httpClient.SendAsync(request);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+
+            return response;
+        }
     }
 }

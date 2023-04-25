@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CallofitMobileXamarin.Views.ChamadosEmAberto"
+             BackgroundColor="#F8F8FF">
+
+    <Grid>
+        <ListView x:Name="lstChamadosEmAberto" HasUnevenRows="True" ItemTapped="OnItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0"  Padding="2" ColumnSpacing="2" BackgroundColor="#B0C4DE" Margin="10, 5" HeightRequest="150">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Label Text="Em Aberto" Padding="2" FontAttributes="Bold" BackgroundColor="Blue" VerticalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" />
+
+                            <Label Text="ID" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" />
+                            <Label Text="{Binding id}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Center" Grid.Row="2" Grid.Column="1" />
+
+                            <Label Text="Data Criação" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" />
+                            <Label Text="{Binding data_criacao, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="2" />
+
+                            <Label Text="Data Limite" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" />
+                            <Label Text="{Binding data_limite, StringFormat='{0:dd/MM/yyyy}'}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="3" />
+
+                            <Label Text="Descrição Problema" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="1" />
+                            <Label LineBreakMode="TailTruncation" Text="{Binding descricao_problema}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="4" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout x:Name="loading" Grid.Row="0" IsVisible="false" 
+                                     BackgroundColor="#C0808080" 
+                                     VerticalOptions="FillAndExpand" 
+                                     HorizontalOptions="FillAndExpand">
+            <Image Source="loading2.gif" IsAnimationPlaying="True"
+                                   VerticalOptions="CenterAndExpand" 
+                                   HorizontalOptions="CenterAndExpand"
+                                   Aspect="AspectFit"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>
