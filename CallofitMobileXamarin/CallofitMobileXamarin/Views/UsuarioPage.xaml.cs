@@ -41,7 +41,7 @@ namespace CallofitMobileXamarin.Views
 
         private async void LogoutButton_Clicked(object sender, EventArgs e)
         {
-            bool result = await DisplayAlert("Logoff", $"Deseja sair da conta?", "Sim", "Não");
+            bool result = await DisplayAlert("Sair", $"Deseja sair da conta?", "Sim", "Não");
 
             if (result)
             {
