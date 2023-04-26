@@ -9,6 +9,7 @@ using CallofitMobileXamarin.Models.Requests;
 using System.Net.Http.Headers;
 using CallofitMobileXamarin.Utils;
 using CallofitMobileXamarin.Models.Usuario;
+using CallofitMobileXamarin.Models.Chamados;
 
 namespace CallofitMobileXamarin.Services
 {
@@ -88,6 +89,32 @@ namespace CallofitMobileXamarin.Services
                 request.Content = content;
                 response = await httpClient.SendAsync(request);
 
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> AlterarSenhaAsync(RequestAlterarSenhaUsuario alterarSenha)
+        {
+            var response = new HttpResponseMessage();
+            var token = await AuthToken.GetTokenAsync();
+
+            try
+            {
+                var handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                };
+                var httpClient = new HttpClient(handler);
+                var content = new StringContent(JsonConvert.SerializeObject(alterarSenha), Encoding.UTF8, "application/json");
+                var request = new HttpRequestMessage(new HttpMethod("PATCH"), Configuration.ApiUrl + "/Usuario/alterarSenha");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Content = content;
+                response = await httpClient.SendAsync(request);
             }
             catch (Exception e)
             {
