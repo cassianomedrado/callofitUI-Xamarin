@@ -66,14 +66,23 @@ namespace CallofitMobileXamarin.Views
                             var usuarioModel = JsonConvert.DeserializeObject<UsuarioDTO>(responseRecuperaUsuarioContent);
                             if (usuarioModel != null)
                             {
-                                loginSuccessful = true;
-                                await SecureStorage.SetAsync("id", usuarioModel.id.ToString());
-                                await SecureStorage.SetAsync("data_criacao", usuarioModel.data_criacao.ToString());
-                                await SecureStorage.SetAsync("nome", usuarioModel.nome);
-                                await SecureStorage.SetAsync("email", usuarioModel.email);
-                                await SecureStorage.SetAsync("tipo_usuario_id", usuarioModel.tipo_usuario_id.ToString());
-                                await SecureStorage.SetAsync("username", usuarioModel.username);
-                                await SecureStorage.SetAsync("status", usuarioModel.status.ToString());
+                                if (usuarioModel.tipo_usuario_id != 3)
+                                {
+                                    loading.IsVisible = false;
+                                    await AuthToken.ClearTokenAsync();
+                                    await DisplayAlert("Error", "Usuário não é do tipo cliente.", "OK");
+                                }
+                                else
+                                {
+                                    loginSuccessful = true;
+                                    await SecureStorage.SetAsync("id", usuarioModel.id.ToString());
+                                    await SecureStorage.SetAsync("data_criacao", usuarioModel.data_criacao.ToString());
+                                    await SecureStorage.SetAsync("nome", usuarioModel.nome);
+                                    await SecureStorage.SetAsync("email", usuarioModel.email);
+                                    await SecureStorage.SetAsync("tipo_usuario_id", usuarioModel.tipo_usuario_id.ToString());
+                                    await SecureStorage.SetAsync("username", usuarioModel.username);
+                                    await SecureStorage.SetAsync("status", usuarioModel.status.ToString());
+                                }
                             }
                             else
                             {

@@ -40,6 +40,7 @@ namespace CallofitMobileXamarin.Views
 
             try
             {
+                solicitanteInput.Text = await SecureStorage.GetAsync("nome");
                 var responseStatus = await chamadosService.RecuperarStatusChamadosAsync();
                 if (responseStatus.IsSuccessStatusCode)
                 {
@@ -144,20 +145,29 @@ namespace CallofitMobileXamarin.Views
 
                 try
                 {
-                    ChamadosService chamadosService = new ChamadosService();
-                    var response = await chamadosService.AbrirChamadoAsync(chamado);
-                    if (response.IsSuccessStatusCode)
+                    bool result = await DisplayAlert("Confirmação", $"Deseja realizar a abertura do chamado?", "Sim", "Não");
+
+                    if (result)
                     {
-                        loading.IsVisible = false;
-                        await DisplayAlert("SUCESSO!!", "Chamado aberto com sucesso!", "OK");
-                        await Navigation.PopModalAsync();
+                        ChamadosService chamadosService = new ChamadosService();
+                        var response = await chamadosService.AbrirChamadoAsync(chamado);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            loading.IsVisible = false;
+                            await DisplayAlert("SUCESSO!!", "Chamado aberto com sucesso!", "OK");
+                            await Navigation.PopModalAsync();
+                        }
+                        else
+                        {
+                            loading.IsVisible = false;
+                            var errorTratado = await ErrorsHandler.TratarMenssagemErro(response);
+                            await DisplayAlert(errorTratado.status.ToString(), errorTratado.errors, "OK");
+                        }
                     }
                     else
                     {
                         loading.IsVisible = false;
-                        var errorTratado = await ErrorsHandler.TratarMenssagemErro(response);
-                        await DisplayAlert(errorTratado.status.ToString(), errorTratado.errors, "OK");
-                    }
+                    }                
                 }
                 catch (Exception ex)
                 {
