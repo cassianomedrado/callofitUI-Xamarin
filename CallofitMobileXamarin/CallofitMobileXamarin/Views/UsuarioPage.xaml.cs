@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -36,17 +36,23 @@ namespace CallofitMobileXamarin.Views
                 await AuthToken.ClearTokenAsync();
                 await Navigation.PushAsync(new LoginPage());
             }
+            nomeUser.Text = await SecureStorage.GetAsync("nome");
         }
 
         private async void LogoutButton_Clicked(object sender, EventArgs e)
         {
-            await AuthToken.ClearTokenAsync();
-            await Navigation.PushAsync(new LoginPage());
+            bool result = await DisplayAlert("Logoff", $"Deseja sair da conta?", "Sim", "Não");
+
+            if (result)
+            {
+                await AuthToken.ClearTokenAsync();
+                await Navigation.PushAsync(new LoginPage());
+            }
         }
 
         private async void ChangePasswordButton_Clicked(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new ChangePasswordPage());
+            await Navigation.PushModalAsync(new UsuarioAlterarSenha());
         }
     }
 }

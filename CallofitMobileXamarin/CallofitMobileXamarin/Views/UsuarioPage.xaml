@@ -4,14 +4,18 @@
              x:Class="CallofitMobileXamarin.Views.UsuarioPage"
              BackgroundColor="#F8F8FF">
     <StackLayout>
-        <StackLayout BackgroundColor="#2196F3" HeightRequest="150">
-            <Label Text="Seu app" TextColor="White" FontSize="Large" Margin="10,40,0,0"/>
-            <Image Source="user.png" WidthRequest="50" HeightRequest="50" VerticalOptions="End" Margin="10"/>
+        <StackLayout BackgroundColor="#212529" HeightRequest="150">
+            <Label x:Name="nomeUser" Text="User" TextColor="White" FontSize="Large" Margin="0,40,0,0" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Image Source="user.png" WidthRequest="100" HeightRequest="100" VerticalOptions="End" />
         </StackLayout>
 
         <StackLayout Margin="20">
-            <Button Text="Trocar Senha" BackgroundColor="#2196F3" TextColor="White" Margin="5" Clicked="ChangePasswordButton_Clicked" />
-            <Button Text="Sair" BackgroundColor="#2196F3" TextColor="White" Margin="5" Clicked="LogoutButton_Clicked" />
+            <Button Text="Trocar Senha" BackgroundColor="LightSlateGray" TextColor="White" Margin="5" Clicked="ChangePasswordButton_Clicked" />
+            <!--<Button Text="Sair" BackgroundColor="#2196F3" TextColor="White" Margin="5" Clicked="LogoutButton_Clicked" ImageSource="sairIcone.png"/>-->
+        </StackLayout>
+        <StackLayout Margin="120">
+          
+            <Button Text="Sair" BackgroundColor="red" TextColor="White" Margin="5" Clicked="LogoutButton_Clicked" ImageSource="sairIcone.png"/>
         </StackLayout>
     </StackLayout>
 

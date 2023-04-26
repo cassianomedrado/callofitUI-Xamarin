@@ -82,19 +82,21 @@
                 
             </Grid>
             
-            <Button Text="+"
-                   BackgroundColor="#007bff"
-                   TextColor="White"
-                   WidthRequest="60"
-                   HeightRequest="60"
-                   CornerRadius="30"
-                   TranslationY="-30"
-                   Clicked="AddChamado"
-                   Grid.Row="3"
-                   Margin="20"
-                   FontSize="30"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"/>
+            <Button BackgroundColor="LightGreen"
+                    TextColor="White"
+                    WidthRequest="47"
+                    HeightRequest="46"
+                    CornerRadius="30"
+                    TranslationY="-30"
+                    Clicked="AddChamado"
+                    Grid.Row="3"
+                    Margin="20"
+                    FontSize="30"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    ImageSource="addIcon.png"
+                    />
+            
         </Grid>
 
         <StackLayout x:Name="loading" Grid.Row="0" IsVisible="false" 

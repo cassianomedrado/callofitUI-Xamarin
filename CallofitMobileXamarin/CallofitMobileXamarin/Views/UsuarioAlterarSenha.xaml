@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CallofitMobileXamarin.Views.UsuarioAlterarSenha">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="10">
+                <Frame  Padding="10" HasShadow="True" CornerRadius="10">
+                    <Label HorizontalTextAlignment="Center" x:Name="titleUserAlterarSenha">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span 
+                                Text="Alterar Senha"
+                                FontAttributes="Bold" FontSize="26"
+                                TextColor="Black"/>
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Frame>
+            </Grid>
+
+            <Grid  Grid.Row="1" RowSpacing="0" ColumnSpacing="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Frame BackgroundColor="#B0C4DE" Padding="2" Margin="10,5" CornerRadius="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ScrollView>
+                            <StackLayout Margin="10">
+                                <Label Text="Email*" FontSize="Medium"  FontAttributes="Bold" TextColor="Black"/>
+                                <Entry x:Name="emailInput" Placeholder="email@email.com" Keyboard="Text"/>
+
+                                <Label Text="Senha Atual*" FontSize="Medium"  FontAttributes="Bold" TextColor="Black"/>
+                                <Entry x:Name="senhaAtualinput" HorizontalTextAlignment="Center" IsPassword="True" />
+
+                                <Label Text="Senha Nova*" FontSize="Medium"  FontAttributes="Bold" TextColor="Black"/>
+                                <Entry x:Name="senhaNovainput" HorizontalTextAlignment="Center" IsPassword="True" />
+
+                                <Label Text="Repita Nova*" FontSize="Medium"  FontAttributes="Bold" TextColor="Black"/>
+                                <Entry x:Name="repitaSenhainput" HorizontalTextAlignment="Center" IsPassword="True" />
+                            </StackLayout>
+                        </ScrollView>
+                    </Grid>
+                </Frame>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Text="Adicionar"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    BackgroundColor="#007bff"
+                    Clicked="SalvarAlteracaoBurronClick"/>
+
+                <Button Grid.Column="1" Text="Cancelar"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    BackgroundColor="red"
+                    Clicked="CancelarButtonClick" />
+            </Grid>
+        </Grid>
+        <StackLayout x:Name="loading" IsVisible="false" 
+                         BackgroundColor="#C0808080" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand">
+            <Image Source="loading2.gif" IsAnimationPlaying="True"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"
+                       Aspect="AspectFit"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>
